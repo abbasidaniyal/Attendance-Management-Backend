@@ -41,7 +41,7 @@ class Students(models.Model):
     uuid = models.UUIDField(primary_key = True, default = uuid.uuid1, editable = False)
     date_joined = models.DateField(auto_now = True, auto_now_add = False)
     student_batch = models.ForeignKey(Batch,on_delete=models.CASCADE,null=True) 
-    
+    student_subject = models.ManyToManyField(Subject, verbose_name=_("Student studies the subject"))
 
 
 class Attendance(models.Model):

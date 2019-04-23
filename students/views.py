@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from rest_framework import generics
-# Create your views here.
+from .serializers import StudentSerializer,TeacherSerializer
 
 
     
 
 
 
-class teacher_subject(generics.ListAPIView):
-    queryset = 
-    
+class SubjectTeacher(generics.RetrieveAPIView):
+    lookup_field = 'subject_teacher'
+    queryset = Subject.objects.all()
+    serializer_class = TeacherSerializer
