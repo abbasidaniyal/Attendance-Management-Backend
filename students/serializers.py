@@ -1,4 +1,4 @@
-from restframework import serializers
+from rest_framework import serializers
 from .models import Students,Subject,Teacher,Attendance
 
 
@@ -21,7 +21,7 @@ class TeacherSerializer(serializers.ModelSerializer):
         fields = ('first_name','last_name','teacher_id')
 
 
-class AttendanceSerializer(serializers.ModelsSerializer):
+class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
         fields = ('status','student_id','subject_id','date')
