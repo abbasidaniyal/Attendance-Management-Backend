@@ -1,8 +1,12 @@
 from django.db import models
 import uuid
-from django.db import models
+from django.contrib.auth.models import User
 import datetime
 
+live_choices = (
+    ("L","L"),
+    ("NL","NL")
+    )
 groups_choices = (
     ("STAFF", "STAFF"),
     ("STUDENT", "STUDENT")
@@ -10,31 +14,34 @@ groups_choices = (
 
 
 class Teacher(models.Model):
+    user_teacher = models.ForeignKey(User, verbose_name=_("Teacher_Login"), on_delete=models.CASCADE)
     first_name = models.CharField(max_length = 30)
     last_name = models.CharField(max_length = 30)
     teacher_id = models.IntegerField(primary_key = True, unique = True)
-
-
-class Subject(models.Model):
-    subject_name = models.CharField(max_length = 30)
-    subject_id = models.AutoField(primary_key = True)
-    subject_teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE) 
 
 class Batch(models.Model):
     batch_id=models.AutoField(primary_key=True)
     batch_name=models.CharField(max_length=20)
 
 
-class Students(models.Model):
+class Subject(models.Model):
+    subject_batch = models.ForeignKey(Batch, on_delete=models.CASCADE,null=True) 
+    subject_name = models.CharField(max_length = 30)
+    subject_id = models.AutoField(primary_key = True)
+    is_live = models.CharField(choices = live_choices ,max_length=5)
+    subject_teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE) 
 
+
+
+class Students(models.Model):
+    user_student = models.ForeignKey(User, verbose_name=_("Studen_login"), on_delete=models.CASCADE)
     first_name = models.CharField(max_length = 30)
     last_name = models.CharField(max_length = 30)
-    email = models.CharField(max_length = 254)
-    password = models.CharField(max_length = 50)
     student_id = models.BigIntegerField(unique=True)
     uuid = models.UUIDField(primary_key = True, default = uuid.uuid1, editable = False)
     date_joined = models.DateField(auto_now = True, auto_now_add = False)
-
+    student_batch = models.ForeignKey(Batch,on_delete=models.CASCADE,null=True) 
+    
 
 
 class Attendance(models.Model):
