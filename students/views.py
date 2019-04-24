@@ -21,7 +21,7 @@ class SubjectTeacher(generics.ListAPIView):
     # queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
     def get_queryset(self):
-        id = self.kwargs['teacher_id']
+        id = self.kwargs['subject_teacher']
         return Subject.objects.filter(subject_teacher=id)
     
 
