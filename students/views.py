@@ -17,11 +17,13 @@ class TeacherList(generics.ListAPIView):
 
 
 
-class SubjectTeacher(generics.RetrieveAPIView):
-    lookup_field = 'subject_teacher'
-    queryset = Subject.objects.all()
+class SubjectTeacher(generics.ListAPIView):
+    # queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
-
+    def get_queryset(self):
+        id = self.request.id
+        return Subject.objects.filter(subject_teacher=id)
+    
 
 
 
