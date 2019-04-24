@@ -45,7 +45,7 @@ class Students(models.Model):
     date_joined = models.DateField(auto_now = True, auto_now_add = False)
     student_batch = models.ForeignKey(Batch,on_delete=models.CASCADE ,null=True) 
     student_subject = models.ManyToManyField(Subject, verbose_name=("Student studies the subject"))
-
+    students_ip = models.CharField(max_length=30,blank=True, null=True)
 
 class Attendance(models.Model):
     attendence_id = models.AutoField(primary_key = True)
