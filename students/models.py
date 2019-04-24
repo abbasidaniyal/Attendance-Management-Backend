@@ -51,4 +51,3 @@ class Attendance(models.Model):
     student_id = models.ForeignKey(Students, on_delete = models.CASCADE)
     subject_id = models.ForeignKey(Subject, on_delete = models.CASCADE)
 
-
