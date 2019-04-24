@@ -6,7 +6,7 @@ from .models import Students, Teacher, Subject, Attendance
 
     
 class TeacherRetrieve(generics.RetrieveAPIView):
-    lookup_field = 'student_id'
+    lookup_field = 'teacher_id'
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
 
