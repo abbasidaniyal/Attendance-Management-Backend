@@ -14,6 +14,6 @@ urlpatterns = [
         views.StudentSubjects.as_view(),name='student_subject_list'),
     url(r'^which-teacher/(?P<teacher_id>\d+)$',
         views.TeacherRetrieve.as_view(),name='which_teacher'),
-    
+        
 ]
 
