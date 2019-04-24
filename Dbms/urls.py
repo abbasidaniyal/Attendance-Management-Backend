@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     path('students/', include('students.urls')),
     path('docs/', include_docs_urls(title='DBMS Backend')),
-    path(r'__debug__', include(debug_toolbar.urls)),
+    path('__debug__', include(debug_toolbar.urls)),
     
     
 ]
