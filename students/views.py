@@ -21,9 +21,10 @@ class SubjectTeacher(generics.ListAPIView):
     # queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
     def get_queryset(self):
-        id = self.request.id
+        id = self.kwargs['subject_teacher']
         return Subject.objects.filter(subject_teacher=id)
     
+
 
 
 
@@ -33,10 +34,11 @@ class SubjectAttendanceLive(generics.RetrieveUpdateAPIView):
     serializer_class = SubjectSerializer
 
 
-class StudentSubjects(generics.RetrieveAPIView):
-    lookup_field = 'student_id'
-    queryset = Students.objects.all()
+class StudentSubjects(generics.ListAPIView):
     serializer_class = StudentSerializer
+    def get_queryset(self):
+    	id = self.kwargs['student_id']
+    	return Students.objects.filter(student_id = id)
 
 class AttendanceStudent(generics.RetrieveAPIView):
     lookup_field = 'student_id'

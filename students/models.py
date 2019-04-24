@@ -11,7 +11,10 @@ groups_choices = (
     ("STAFF", "STAFF"),
     ("STUDENT", "STUDENT")
 )
-
+attendence_choices = (
+    ("Abesnt", "A"),
+    ("Present", "P")
+)
 
 class Teacher(models.Model):
     # user_teacher = models.ForeignKey(User, verbose_name=("Teacher_Login"), on_delete=models.SET_NULL,default="0",null=True)
@@ -42,11 +45,11 @@ class Students(models.Model):
     date_joined = models.DateField(auto_now = True, auto_now_add = False)
     student_batch = models.ForeignKey(Batch,on_delete=models.CASCADE ,null=True) 
     student_subject = models.ManyToManyField(Subject, verbose_name=("Student studies the subject"))
-
+    students_ip = models.CharField(max_length=30,blank=True, null=True)
 
 class Attendance(models.Model):
     attendence_id = models.AutoField(primary_key = True)
-    status = models.CharField(max_length = 2)
+    status = models.CharField(max_length = 2, choices = attendence_choices)
     date = models.DateField(auto_now = True, auto_now_add = False)
     student_id = models.ForeignKey(Students, on_delete = models.CASCADE)
     subject_id = models.ForeignKey(Subject, on_delete = models.CASCADE)
