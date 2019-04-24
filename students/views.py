@@ -20,7 +20,7 @@ class TeacherList(generics.ListAPIView):
 class SubjectTeacher(generics.RetrieveAPIView):
     lookup_field = 'subject_teacher'
     queryset = Subject.objects.all()
-    serializer_class = TeacherSerializer
+    serializer_class = SubjectSerializer
 
 
 
