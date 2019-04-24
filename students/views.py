@@ -37,7 +37,7 @@ class SubjectAttendanceLive(generics.RetrieveUpdateAPIView):
 class StudentSubjects(generics.ListAPIView):
     serializer_class = StudentSerializer
     def get_queryset(self):
-    	id = self.kwrags['student_id']
+    	id = self.kwargs['student_id']
     	return Students.objects.filter(subject_id = id)
 
 class AttendanceStudent(generics.RetrieveAPIView):
