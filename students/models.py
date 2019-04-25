@@ -12,7 +12,7 @@ groups_choices = (
     ("STUDENT", "STUDENT")
 )
 attendence_choices = (
-    ("Abesnt", "A"),
+    ("Absent", "A"),
     ("Present", "P")
 )
 
