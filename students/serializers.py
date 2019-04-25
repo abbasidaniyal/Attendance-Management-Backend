@@ -10,7 +10,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    student_subject = serializers.SlugRelatedField(many=True, read_only=True,slug_field='subject_id')
+    student_subject = SubjectSerializer(many=True, read_only=True)
     class Meta:
         model = Students
         fields = ('first_name','last_name','uuid','student_subject','students_ip')
