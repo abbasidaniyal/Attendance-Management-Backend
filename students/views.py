@@ -2,7 +2,15 @@ from django.shortcuts import render
 from rest_framework import generics
 from .serializers import StudentSerializer,TeacherSerializer,SubjectSerializer,AttendanceSerializer
 from .models import Students, Teacher, Subject, Attendance
-
+from django.shortcuts import render
+from rest_framework import viewsets, status
+from django.core.mail import send_mail
+from django.conf import settings
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.http import HttpResponse
+import smtplib
+import json
 
     
 class TeacherRetrieve(generics.RetrieveAPIView):
@@ -44,3 +52,22 @@ class AttendanceStudent(generics.RetrieveAPIView):
     lookup_field = 'student_id'
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
+
+
+
+
+
+
+@api_view(['POST'])
+def form(request):
+    
+    body = request.data
+
+    
+    if message:
+        try:
+            print(body)
+            # return HttpResponse(request)
+        # except BadHeaderError:
+        #     content = {'Try again': 'Try again'}
+        #     return Response(content, status=status.HTTP_404_BAD_REQUEST)
