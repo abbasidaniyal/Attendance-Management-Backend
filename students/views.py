@@ -11,6 +11,8 @@ from rest_framework.response import Response
 from django.http import HttpResponse
 import smtplib
 import json
+import datetime
+
 
     
 class TeacherRetrieve(generics.RetrieveAPIView):
@@ -41,6 +43,33 @@ class SubjectAttendanceLive(generics.RetrieveUpdateAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
 
+    def CreateAttendance(self, subject_id):
+        subject_id = self.kwargs['subject_id']
+        stud = Students.objects.filter(student_subject='subject_id')
+        for inst in stud:
+            att_student_id = inst.student_id
+            att_subject_id = subject_id
+            att_date = datetime.date.today()
+            attendance_create = Attendance(student_id = att_student_id,
+                                            student_subject=att_subject_id,
+                                            date=att_date)
+            attendance_create.save()
+
+    CreateAttendance(subject_id)
+        ## student models main se student ids where subject_id present
+        ## attendance instance student ids subject id and date today status absent
+        ## instance save
+        # stud_id = Students.objects.filter()
+# class Attendance(models.Model):
+#     attendence_id = models.AutoField(primary_key = True)
+#     status = models.CharField(max_length = 2, choices = attendence_choices)
+#     date = models.DateField(auto_now = True, auto_now_add = True)
+#     student_id = models.ForeignKey(Students, on_delete = models.CASCADE)
+#     subject_id = models.ForeignKey(Subject, on_delete = models.CASCADE)
+
+
+    # CreateAttendance(subject_id)
+
 
 class StudentSubjects(generics.ListAPIView):
     serializer_class = StudentSerializer
@@ -58,16 +87,3 @@ class AttendanceStudent(generics.RetrieveAPIView):
 
 
 
-@api_view(['POST'])
-def form(request):
-    
-    body = request.data
-
-    
-    if message:
-        try:
-            print(body)
-            # return HttpResponse(request)
-        # except BadHeaderError:
-        #     content = {'Try again': 'Try again'}
-        #     return Response(content, status=status.HTTP_404_BAD_REQUEST)
