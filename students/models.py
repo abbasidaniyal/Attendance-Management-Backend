@@ -1,5 +1,4 @@
 from django.db import models
-import uuid
 from django.contrib.auth.models import User
 import datetime
 
@@ -12,15 +11,15 @@ groups_choices = (
     ("STUDENT", "STUDENT")  
 )
 attendence_choices = (
-    ("Absent", "A"),
-    ("Present", "P")
+    ("A", "A"),
+    ("P", "P")
 )
 
 class Teacher(models.Model):
     # user_teacher = models.ForeignKey(User, verbose_name=("Teacher_Login"), on_delete=models.SET_NULL,default="0",null=True)
     first_name = models.CharField(max_length = 30)
     last_name = models.CharField(max_length = 30)
-    teacher_id = models.IntegerField(primary_key = True, unique = True)
+    teacher_id = models.IntegerField(primary_key = True, )
 
 class Batch(models.Model):
     batch_id=models.AutoField(primary_key=True)
@@ -40,18 +39,18 @@ class Students(models.Model):
     # user_student = models.ForeignKey(User, verbose_name=("Student_login"), on_delete=models.SET_NULL,default="0",null=True)
     first_name = models.CharField(max_length = 30)
     last_name = models.CharField(max_length = 30)
-    student_id = models.BigIntegerField(unique=True)
+    student_id = models.IntegerField(primary_key=True)
     date_joined = models.DateField(auto_now = True, auto_now_add = False)
     student_batch = models.ForeignKey(Batch,on_delete=models.CASCADE ,null=True) 
     student_subject = models.ManyToManyField(Subject, verbose_name=("Student studies the subject"))
-    students_ip = models.CharField(max_length=30,blank=True, null=True)
+    students_ip = models.CharField(max_length=30,blank=True,)
     def __str__(self):
         return self.first_name
 
 class Attendance(models.Model):
     attendence_id = models.AutoField(primary_key = True)
-    status = models.CharField(max_length = 2, choices = attendence_choices)
-    date = models.DateField(auto_now = True, auto_now_add = True)
+    status = models.CharField(max_length = 2, choices = attendence_choices,default="A")
+    date = models.DateField( auto_now_add = True)
     student_id = models.ForeignKey(Students, on_delete = models.CASCADE)
     subject_id = models.ForeignKey(Subject, on_delete = models.CASCADE)
 

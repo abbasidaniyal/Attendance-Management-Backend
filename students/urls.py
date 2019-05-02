@@ -7,7 +7,7 @@ from django.conf.urls import url
 urlpatterns = [
     url(r'^subject-teacher/(?P<subject_teacher>\d+)$',
         views.SubjectTeacher.as_view(), name ='subjects_under_teacher'),
-    url(r'^attendace-status/(?P<subject_id>\d+)$',
+    url(r'^attendance-status/(?P<subject_id>\d+)$',
         views.SubjectAttendanceLive.as_view(),name='subject_status'),
     path('teacher-list/',views.TeacherList.as_view(),name='teachers_list'),
     url(r'^student-subject/(?P<student_id>\d+)$',

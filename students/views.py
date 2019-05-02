@@ -43,19 +43,24 @@ class SubjectAttendanceLive(generics.RetrieveUpdateAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
 
-    def CreateAttendance(self, subject_id):
-        subject_id = self.kwargs['subject_id']
-        stud = Students.objects.filter(student_subject='subject_id')
+    def create_attendance(self):
+        stud = Students.objects.filter(student_subject=self.kwargs['subject_id'])
         for inst in stud:
             att_student_id = inst.student_id
-            att_subject_id = subject_id
+            att_subject_id = inst.subject_id
             att_date = datetime.date.today()
             attendance_create = Attendance(student_id = att_student_id,
                                             student_subject=att_subject_id,
-                                            date=att_date)
+                                            date=att_date,
+                                            )
             attendance_create.save()
 
-    CreateAttendance(subject_id)
+        
+    
+# student = SubjectAttendanceLive()
+# p = Subject()
+# student.CreateAttendance(p.subject_id
+
         ## student models main se student ids where subject_id present
         ## attendance instance student ids subject id and date today status absent
         ## instance save
