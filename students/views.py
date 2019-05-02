@@ -12,7 +12,7 @@ from django.http import HttpResponse
 import smtplib
 import json
 import datetime
-
+from django.shortcuts import get_list_or_404, get_object_or_404
 
     
 class TeacherRetrieve(generics.RetrieveAPIView):
@@ -74,7 +74,21 @@ class SubjectAttendanceLive(generics.RetrieveUpdateAPIView):
 
 
     # CreateAttendance(subject_id)
-
+class MultipleFieldLookupMixin(object):
+    """
+    Apply this mixin to any view or viewset to get multiple field filtering
+    based on a `lookup_fields` attribute, instead of the default single field filtering.
+    """
+    def get_object(self):
+        queryset = self.get_queryset()             # Get the base queryset
+        queryset = self.filter_queryset(queryset)  # Apply any filter backends
+        filter = {}
+        for field in self.lookup_fields:
+            if self.kwargs[field]: # Ignore empty fields.
+                filter[field] = self.kwargs[field]
+        obj = get_object_or_404(queryset, **filter)  # Lookup the object
+        self.check_object_permissions(self.request, obj)
+        return obj
 
 class StudentSubjects(generics.ListAPIView):
     serializer_class = StudentSerializer
@@ -83,12 +97,15 @@ class StudentSubjects(generics.ListAPIView):
     	return Students.objects.filter(student_id = id)
 
 class AttendanceStudent(generics.RetrieveAPIView):
-    lookup_field = 'student_id'
+    lookup_field = 'student_id_att'
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
 
 
-
+class AttendancePercentage(MultipleFieldLookupMixin, generics.RetrieveAPIView):
+    lookup_fields = ('student_id_att','subject_id_att')
+    queryset = Attendance.objects.all()
+    serializer_class = AttendanceSerializer 
 
 
 

@@ -25,4 +25,4 @@ class TeacherSerializer(serializers.ModelSerializer):
 class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
-        fields = ('status','student_id','subject_id','date')
+        fields = ('status','student_id_att','subject_id_att','date')

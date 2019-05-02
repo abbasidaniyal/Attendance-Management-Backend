@@ -56,5 +56,5 @@ class Attendance(models.Model):
     date = models.DateField( auto_now_add = True)
     student_id_att = models.ForeignKey(Students, on_delete = models.CASCADE)
     subject_id_att = models.ForeignKey(Subject, on_delete = models.CASCADE)
-    def __str__(self):
-        return self.student_id_att
+    # def __str__(self):
+    #     return self.attendence_id

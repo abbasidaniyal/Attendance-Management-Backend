@@ -14,7 +14,8 @@ urlpatterns = [
         views.StudentSubjects.as_view(),name='student_subject_list'),
     url(r'^which-teacher/(?P<teacher_id>\d+)$',
         views.TeacherRetrieve.as_view(),name='which_teacher'),
-   
+    path('attendance-of-student/<int:student_id_att>/of-subject/<int:subject_id_att>/',views.AttendancePercentage.as_view(),name='attendance_percentage'),
+    path('attendance-of-subject-all/<int:student_id_att>/',views.AttendanceStudent.as_view(),name='attendance-list-0f-students'),
         
 ]
 
