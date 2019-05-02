@@ -19,7 +19,9 @@ class Teacher(models.Model):
     # user_teacher = models.ForeignKey(User, verbose_name=("Teacher_Login"), on_delete=models.SET_NULL,default="0",null=True)
     first_name = models.CharField(max_length = 30)
     last_name = models.CharField(max_length = 30)
-    teacher_id = models.IntegerField(primary_key = True, )
+    teacher_id = models.IntegerField(primary_key = True)
+    def __str__(self):
+        return self.first_name
 
 class Batch(models.Model):
     batch_id=models.AutoField(primary_key=True)
@@ -32,7 +34,8 @@ class Subject(models.Model):
     subject_id = models.AutoField(primary_key = True)
     is_live = models.CharField(choices = live_choices ,max_length=5,default="NL")
     subject_teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE) 
-
+    def __str__(self):
+        return self.subject_name
 
 
 class Students(models.Model):
@@ -51,6 +54,7 @@ class Attendance(models.Model):
     attendence_id = models.AutoField(primary_key = True)
     status = models.CharField(max_length = 2, choices = attendence_choices,default="A")
     date = models.DateField( auto_now_add = True)
-    student_id = models.ForeignKey(Students, on_delete = models.CASCADE)
-    subject_id = models.ForeignKey(Subject, on_delete = models.CASCADE)
-
+    student_id_att = models.ForeignKey(Students, on_delete = models.CASCADE)
+    subject_id_att = models.ForeignKey(Subject, on_delete = models.CASCADE)
+    def __str__(self):
+        return self.student_id_att
