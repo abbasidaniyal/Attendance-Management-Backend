@@ -26,6 +26,5 @@ urlpatterns = [
     path('students/', include('students.urls')),
     path('docs/', include_docs_urls(title='DBMS Backend')),
     path('__debug__', include(debug_toolbar.urls)),
-    
-    
+
 ]
