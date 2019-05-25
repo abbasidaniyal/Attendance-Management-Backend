@@ -40,8 +40,8 @@ class Students(models.Model):
     # user_student = models.ForeignKey(User, verbose_name=("Student_login"), on_delete=models.SET_NULL,default="0",null=True)
     first_name = models.CharField(max_length = 30)
     last_name = models.CharField(max_length = 30)
-    student_id = models.BigIntegerField(unique=True)
-    uuid = models.UUIDField(primary_key = True, default = uuid.uuid1, editable = False)
+    # student_id = models.BigIntegerField(unique=True,primary_key=True)
+    # uuid = models.UUIDField(primary_key = True, default = uuid.uuid1, editable = False)
     date_joined = models.DateField(auto_now = True, auto_now_add = False)
     student_batch = models.ForeignKey(Batch,on_delete=models.CASCADE ,null=True) 
     student_subject = models.ManyToManyField(Subject, verbose_name=("Student studies the subject"))
@@ -49,7 +49,7 @@ class Students(models.Model):
 
 class Attendance(models.Model):
     attendence_id = models.AutoField(primary_key = True)
-    status = models.CharField(max_length = 2, choices = attendence_choices)
+    status = models.CharField(max_length = 10, choices = attendence_choices)
     date = models.DateField(auto_now = True, auto_now_add = False)
     student_id = models.ForeignKey(Students, on_delete = models.CASCADE)
     subject_id = models.ForeignKey(Subject, on_delete = models.CASCADE)

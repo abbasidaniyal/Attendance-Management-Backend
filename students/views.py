@@ -53,21 +53,28 @@ class AttendanceStudent(generics.RetrieveAPIView):
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
 
-
-
-
-
-
 @api_view(['POST'])
-def form(request):
-    
-    body = request.data
+def createInstance(request):
+    sub_id = request.data
+    for stud in Students.objects.filter(student_subject=sub_id):
+        att = Attendance(student_id_id=stud.id,subject_id_id=sub_id,status="Absent")
+        att.save()
+    content = {'success': 'success'}
+    return Response(content, status=status.HTTP_200_OK)
+
+
+
+
+
+# @api_view(['POST'])
+# def form(request):
+#     body = request.data
 
     
-    if message:
-        try:
-            print(body)
-            # return HttpResponse(request)
-        # except BadHeaderError:
-        #     content = {'Try again': 'Try again'}
-        #     return Response(content, status=status.HTTP_404_BAD_REQUEST)
+#     if message:
+#         try:
+#             print(body)
+#             # return HttpResponse(request)
+#         # except BadHeaderError:
+#         #     content = {'Try again': 'Try again'}
+#         #     return Response(content, status=status.HTTP_404_BAD_REQUEST)
