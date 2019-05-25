@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('first_name', models.CharField(max_length=30)),
                 ('last_name', models.CharField(max_length=30)),
-                ('teacher_id', models.IntegerField(primary_key=True, serialize=False, unique=True)),
+                ('teacher_id', models.IntegerField(primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(max_length=30)),
                 ('last_name', models.CharField(max_length=30)),
                 ('date_joined', models.DateField(auto_now=True)),
-                ('students_ip', models.CharField(blank=True, max_length=30, null=True)),
+                ('students_ip', models.CharField(blank=True, max_length=30)),
                 ('student_batch', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='students.Batch')),
                 ('student_subject', models.ManyToManyField(to='students.Subject', verbose_name='Student studies the subject')),
             ],
@@ -53,10 +53,10 @@ class Migration(migrations.Migration):
             name='Attendance',
             fields=[
                 ('attendence_id', models.AutoField(primary_key=True, serialize=False)),
-                ('status', models.CharField(choices=[('Absent', 'A'), ('Present', 'P')], max_length=2)),
-                ('date', models.DateField(auto_now=True)),
-                ('student_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='students.Students')),
-                ('subject_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='students.Subject')),
+                ('status', models.CharField(choices=[('A', 'A'), ('P', 'P')], default='A', max_length=2)),
+                ('date', models.DateField(auto_now_add=True)),
+                ('student_id_att', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='students.Students')),
+                ('subject_id_att', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='students.Subject')),
             ],
         ),
     ]
