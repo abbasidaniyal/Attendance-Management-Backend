@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^attendance-status/(?P<subject_id>\d+)$',
         views.SubjectAttendanceLive.as_view(),name='subject_status'),
     path('teacher-list/',views.TeacherList.as_view(),name='teachers_list'),
-    url(r'^student-subject/(?P<student_id>\d+)$',
+    url(r'^student-subject/(?P<id>\d+)$',
         views.StudentSubjects.as_view(),name='student_subject_list'),
     url(r'^which-teacher/(?P<teacher_id>\d+)$',
         views.TeacherRetrieve.as_view(),name='which_teacher'),

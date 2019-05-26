@@ -72,11 +72,11 @@ class MultipleFieldLookupMixin(object):
 class StudentSubjects(generics.ListAPIView):
     serializer_class = StudentSerializer
     def get_queryset(self):
-    	id = self.kwargs['student_id']
-    	return Students.objects.filter(student_id = id)
+    	id = self.kwargs['id']
+    	return Students.objects.filter(id = id)
 
 class AttendanceStudent(generics.RetrieveAPIView):
-    lookup_field = 'student_id_att'
+    lookup_field = 'student_id'
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
 
